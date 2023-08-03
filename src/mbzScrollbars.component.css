@@ -1,0 +1,107 @@
+:host,
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  --_scrollbar-size: 14px;
+  --_textarea-scrollbar-corner-size: 20px;
+  --_min-scrollbar-control-surface-size: 20px;
+
+  display: block;
+}
+
+.block-container {
+  display: block;
+}
+
+.scrollbars {
+  --_scrollbar-background-color: rgba(0, 0, 0, 0.1);
+  --_scrollbar-control-surface-background-color: black;
+  display: inline-block;
+  position: relative;
+}
+
+.scrollbars--light-on-dark {
+  --_scrollbar-background-color: rgba(255, 255, 255, 0.2);
+  --_scrollbar-control-surface-background-color: white;
+}
+
+.scrollbars__scrollbar {
+  --_scrollbar-display: none;
+  --_scrollbar-control-surface-display: none;
+  --_scrollbar-y-height: calc(100% - var(--_scrollbar-size));
+  --_scrollbar-x-width: calc(100% - var(--_scrollbar-size));
+
+  background-color: var(--_scrollbar-background-color);
+  display: var(--_scrollbar-display);
+  filter: opacity(0);
+  position: absolute;
+  transition: filter 0.25s;
+}
+
+.scrollbars__scrollbar--can-scroll {
+  --_scrollbar-control-surface-display: block;
+}
+
+:is(.scrollbars:hover, .scrollbars--active, .scrollbars--always-on) .scrollbars__scrollbar {
+  filter: opacity(1);
+}
+
+.scrollbars__scrollbar--can-scroll,
+.scrollbars__scrollbar--overflow-scroll {
+  --_scrollbar-display: block;
+}
+
+.scrollbars__scrollbar--fullsize {
+  --_scrollbar-y-height: 100%;
+  --_scrollbar-x-width: 100%;
+}
+
+.scrollbars__scrollbar--horizontal {
+  bottom: 0;
+  left: 0;
+  height: var(--_scrollbar-size);
+  width: var(--_scrollbar-x-width);
+}
+
+.scrollbars__scrollbar--vertical {
+  height: var(--_scrollbar-y-height);
+  right: 0;
+  top: 0;
+  width: var(--_scrollbar-size);
+}
+
+.scrollbars--textarea .scrollbars__scrollbar--horizontal {
+  width: calc(100% - var(--_textarea-scrollbar-corner-size));
+}
+
+.scrollbars--textarea .scrollbars__scrollbar--vertical {
+  height: calc(100% - var(--_textarea-scrollbar-corner-size));
+}
+
+.scrollbars__scrollbar-control-surface {
+  background-color: var(--_scrollbar-control-surface-background-color);
+  display: var(--_scrollbar-control-surface-display);
+  filter: opacity(0.15);
+}
+
+.scrollbars__scrollbar-control-surface--horizontal {
+  height: 100%;
+  min-width: var(--_min-scrollbar-control-surface-size);
+  width: 0;
+}
+
+.scrollbars__scrollbar-control-surface--vertical {
+  width: 100%;
+  height: 0;
+  min-height: var(--_min-scrollbar-control-surface-size);
+}
+
+.scrollbars__scrollbar-control-surface:not(.scrollbars__scrollbar-control-surface--active):hover {
+  filter: opacity(0.25);
+}
+
+.scrollbars__scrollbar-control-surface--active {
+  filter: opacity(0.35);
+}
